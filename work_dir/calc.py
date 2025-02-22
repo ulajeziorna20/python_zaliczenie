@@ -8,7 +8,7 @@ def calc_main_func():
     print("Tryb kalkulator. Wpisz 'q' żeby wyjść ;)")
 
     while True:
-        operator = input("Choose an operator (+, -, *, /, !, ^, q): ").strip()
+        operator = input("Choose an operator (+, -, *, /, !, ^, q, h): ").strip()
 
         if operator == 'q':
             break
@@ -33,11 +33,22 @@ def calc_main_func():
                 result = num1 ** num2
 
         elif operator == '!':
-            num1 = int(get_number("Integer number"))
-            if num1 < 0:
+            num_special = int(get_number("Integer number"))
+
+            if  num_special < 0:
                 print("We cannot do this operation on the negative number!")
                 continue
-            result = math.factorial(num1)
+            result = math.factorial( num_special)
+
+            write_out_history(operator, [num_special], result)
+
+        elif operator == 'h':
+            history = read_history()
+            if history:
+                print("Historia działań:")
+                for elem in history:
+                    print(elem.strip())
+            continue
 
         else:
             print("I didn't get this operator")
@@ -45,20 +56,8 @@ def calc_main_func():
 
         print(f"Wynik końcowy to {result}")
 
-        if operator == '!':
+        write_out_history(operator, [num1, num2], result)
 
-          write_out_history(operator, [num1], result)
-        else:
-          write_out_history(operator, [num1, num2], result)
-
-
-        if operator == 'h':
-            history = read_history()
-            if history:
-                print("Historia działań:")
-                for elem in history:
-                    print(elem.strip())
-            continue
 
 if __name__ == "__main__":
     calc_main_func()

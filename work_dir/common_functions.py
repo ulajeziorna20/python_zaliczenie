@@ -1,17 +1,22 @@
+import os
+
+history_dir = "assets/"
+
 def write_out_history(numbers, operator, result):
+
     try:
-        with open("history_calc.txt", "a") as file:
-            file.write(f"Operatic: {operator},  z danymi: {numbers}, zakończona wynikiem: {result}\n")
+        with open(os.path.join(history_dir, "history_calc.txt"), "a") as file:
+            file.write(f"Operacja: {operator},  z danymi: {numbers}, zakonczona wynikiem: {result}\n")
     except Exception as e:
         print(f"Error in history saving process: {e}")
 
 
 def read_history():
     try:
-        with open("history_calc.txt", "r") as file:
+        with open(os.path.join(history_dir, "history_calc.txt"), "r") as file:
             return file.readlines()
     except FileNotFoundError:
-        print("No operations saved in the history")
+        print("Connot access the file")
         return []
     except Exception as e:
         print(f"Error during reading the history: {e}")
